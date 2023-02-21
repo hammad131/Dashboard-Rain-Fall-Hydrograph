@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rain Fall Hydrograph</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha384-eE1GKjQ0Sae5P5NE5gdtfN4jrJ4+4Nv0YXrvWg+3q3tLj7VUGpMvJw7eZmI0RJm/" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">  
+</head>
+<body>
+
+
+   
+        <div class="data">
+          <div class="card">
+            <div class="card-head">
+              Countdown Timer
+              <div class="timer-status inactive"></div>
+            </div>
+            <!-- <div class="card-body"> -->
+              <div class="card-input-group">
+                <div class="card-time-input">
+                  <input type="number" id="minutes" class="card-input card-minutes" placeholder="Minutes" value="00">
+                  <div class="card-time-unit">Minutes</div>
+                </div>
+                <div class="card-time-input">
+                  <input type="number" id='seconds'class="card-input card-seconds" placeholder="Seconds" value="00">
+                  <div class="card-time-unit">Seconds</div>
+                </div>
+              </div>
+              <button class="card-submit" onclick="startTimer()">Start</button>
+              <button class="card-submit" onclick="resetTimer()">Reset</button>
+              <div id="countdown"></div>
+              <div id="iteration"></div>
+            <!-- </div> -->
+          </div>
+          
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title">Timer 2</h3>
+              <div class="card-input-group">
+                <div class="card-time-input">
+                  <input type="number" class="card-input card-minutes" placeholder="Minutes" min="0" max="59" initial="00">
+                  <div class="card-time-unit">Minutes</div>
+                </div>
+                <div class="card-time-input">
+                  <input type="number" class="card-input card-seconds" placeholder="Seconds" min="0" max="59">
+                  <div class="card-time-unit">Seconds</div>
+                </div>
+              </div>
+              <button class="card-submit">Submit</button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title">Timer 3</h3>
+              <div class="card-input-group">
+                <div class="card-time-input">
+                  <input type="number" class="card-input card-minutes" placeholder="Minutes" min="0" max="59">
+                  <div class="card-time-unit">Minutes</div>
+                </div>
+
+                <div class="card-time-input">
+                  <input type="number" class="card-input card-seconds" placeholder="Seconds" min="0" max="59">
+                  <div class="card-time-unit">Seconds</div>
+                </div>
+              </div>
+              <button class="card-submit">Submit</button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <h3 class="card-title">Solenoids</h3>
+              <div class="card-valve-group">
+                <div class="card-valve">
+                  <p class="card-valve-label">Valve 1</p>
+                  <div class="card-valve-switch">
+                    <input type="checkbox" class="card-valve-checkbox" id="valve1">
+                    <label class="card-valve-toggle" for="valve1"></label>
+                  </div>
+                </div>
+                <div class="card-valve">
+                  <p class="card-valve-label">Valve 2</p>
+                  <div class="card-valve-switch">
+                    <input type="checkbox" class="card-valve-checkbox" id="valve2">
+                    <label class="card-valve-toggle" for="valve2"></label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <button>
+                <i class="fa fa-info-circle fa-3x" aria-hidden="true" ></i>
+              </button>
+              
+            </div>
+          </div>
+        </div>
+        <div class="graph">
+          <canvas id="myChart" ></canvas>
+        <div class="data-card">
+          <div class="read-card filling-cup">
+            <div class="card-header">
+              <h3>Filling Cup</h3>
+           </div>
+            <div class="card-body">
+            </div>
+          </div>
+          <div class="read-card temperature">
+            <div class="card-header">
+              <h3>Temperature</h3>
+           </div>
+            <div class="card-body">
+            </div>
+          </div>
+          <div class="read-card volume-flow">
+            <div class="card-header">
+              <h3>Volume Flow</h3>
+           </div>
+            <div class="card-body">
+            </div>
+          </div>
+          <div class="read-card tilt-angle">
+            <div class="card-header">
+              <h3>Tilt Angle</h3>
+           </div>
+            <div class="card-body">
+            </div>
+          </div>
+        </div>
+          <div class="card">
+            <div class="card-header">
+              <h3>Data Logging</h3>
+           </div>
+            <div class="card-body">
+              <div class="logging-buttons">
+                <button id="start-button">Start</button>
+                <button id="stop-button">Stop</button>
+                <button id="stop-button">Excel</button>
+              </div>
+              <div class="console">
+                <p id="output"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="data_entry">
+          <div class="data_from">
+            <div class="Heading">
+                Graph Input
+            </div>
+            <form id="data_input">
+              <div class="form-element">
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label for="inputField1">V1:</label>
+                  <input type="number" id="v1" placeholder="Volume in m3">
+                </div>
+                
+                <div class="form-group col-md-4">
+                  <label for="inputField2">V2:</label>
+                  <input type="number" id="v2" >
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputField3">V3:</label>
+                  <input type="number" id="v3" >
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputField4">V4:</label>
+                  <input type="number" id="v4" >
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputField5">V5:</label>
+                  <input type="number" id="v5" >
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputField6">V6:</label>
+                  <input type="number" id="v6" >
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputField7">V7:</label>
+                  <input type="number" id="v7" >
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputField8">V8:</label>
+                  <input type="number" id="v8" >
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputField9">V9:</label>
+                  <input type="number" id="v9" >
+                </div>
+                
+              </div>
+              
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label for="inputField10">V10:</label>
+                  <input type="number" id="v10" >
+                </div>
+                
+                <div class="form-group col-md-4">
+                  <label for="inputField11">V11:</label>
+                  <input type="number" id="v11" >
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputField11">V12:</label>
+                  <input type="number" id="v12" >
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputField11">V13:</label>
+                  <input type="number" id="v13" >
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputField11">V14:</label>
+                  <input type="number" id="v14" >
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputField11">V15:</label>
+                  <input type="number" id="v15" >
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputField11">V16:</label>
+                  <input type="number" id="v16" >
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputField11">V17:</label>
+                  <input type="number" id="v17" >
+                </div>
+                
+                
+                <!-- Repeat the above code block for a total of 8 input fields -->
+              </div>
+              
+            </div>
+            <div class="form-group col-md-4">
+              <label for="inputField11">StepTime:</label>
+              <input type="number" id="stepTime" >
+            </div>
+            <div class="button-row">
+              <button class='submit'type="submit">Create</button>
+              <button class='update'type="submit" >Update</button>
+              <button class="reset" onclick="reset()">Reset</button>
+            </div>
+            </form>
+            
+                
+          </div>
+          <div class="stopwatch">
+            <p id="timer"></p>
+            <p class="time-display-note">Minutes:Seconds:Milliseconds</p>
+            <div class="buttons">
+              <button id="startBtn">Start</button>
+              <button id="stopBtn">Stop</button>
+              <button id="resetBtn">Reset</button>
+              <button id="lapBtn">Lap</button>
+            </div>
+            <ul id="laps">
+            </ul>
+          </div>
+         
+        </div>
+
+   
+
+</body>
+<script src="./renderer.js"></script>
+<script src="./stopwatch.js"></script>
+<script src="./chart.js"></script>
+</html>

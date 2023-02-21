@@ -1,0 +1,25 @@
+{
+  "name": "Rain Fall Hydrograph",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "build": "electron-packager ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chart.js": "^3.9.1",
+    "electron": "^22.0.2",
+    "eletron": "^0.0.1-security",
+    "push.js": "^1.0.12",
+    "sweetalert2": "^11.7.0",
+    "toastr": "^2.1.4",
+    "wifi-control": "^2.0.1"
+  },
+  "devDependencies": {
+    "electron-packager": "^17.1.1"
+  }
+}
